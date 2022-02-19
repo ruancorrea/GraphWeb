@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <div>
-       <div className="flex w-screen items-center flex-shrink-0 text-white mr-6 p-6 bg-slate-700 mb-3">
+       <div className="flex w-full items-center flex-shrink-0 text-white mr-6 p-6 bg-slate-700 mb-3">
         <span className="font-semibold text-xl tracking-tight ml-2">Gerador de Grafos</span>
       </div>
       <div className='grid md:grid-cols-2 grid-cols-1 '>  
