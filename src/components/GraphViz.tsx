@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import { useEffect } from 'react';
 const Graphviz = dynamic(() => import('graphviz-react'), { ssr: false });
 
 interface GraphVizProps {
