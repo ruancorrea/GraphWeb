@@ -7,10 +7,9 @@ interface GraphVizProps {
 }
 
 export default function GraphViz (props: GraphVizProps) {
-    
     return (
         <div className='flex items-center p-4 justify-center'>
-            <Graphviz options={{height:400, width: 600}} dot={props.dot} />
+            <Graphviz options={{height: 400, width: 400}} dot={props.dot} />
         </div>
     )
 }
