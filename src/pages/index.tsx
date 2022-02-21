@@ -35,7 +35,7 @@ export default function Home() {
         <span className="font-semibold text-xl tracking-tight ml-2">Criador de Grafos</span>
       </div>
       <div className='grid md:grid-cols-2 grid-cols-1 '>  
-        <div className='flex min-h-screen w-full items-center justify-center bg-gray-100 p-4'>
+        <div className='flex min-h-screen w-full items-center justify-center bg-gray-100 px-4'>
           {
             inicial 
             ?
