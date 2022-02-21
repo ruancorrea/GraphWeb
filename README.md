@@ -1,7 +1,7 @@
 <div>
     <div align = "center">
         <h1>Criador de Grafos</h1>
-        <img src="https://user-images.githubusercontent.com/47988061/154784223-0978ee5e-d1f1-41a4-b10e-51851498754b.jpg"/>
+        <img src="https://user-images.githubusercontent.com/47988061/155004556-e9371621-9da1-4ae5-9fc0-992d58b73c5c.png"/>
         <a href="https://graph-web.vercel.app/" target="_blank">https://graph-web.vercel.app/</a>
     </div>
     <h3>Funcionalidades</h3>
@@ -13,6 +13,14 @@
         <li>Download em <i>.png</i> do grafo criado.</li>
         <li>Design responsivo</li>
     </ul>
+    <div align = "center">
+    <h3>Grafo não direcionado</h3>
+    <img src="https://user-images.githubusercontent.com/47988061/155004556-e9371621-9da1-4ae5-9fc0-992d58b73c5c.png"/>
+    </div>
+    <div align = "center">
+    <h3>Grafo direcionado</h3>
+    <img src="https://user-images.githubusercontent.com/47988061/155004556-e9371621-9da1-4ae5-9fc0-992d58b73c5c.png"/>
+    </div>
     <h3>Tecnologias utilizadas</h3>
     <ul>
         <li>NextJS</li>
