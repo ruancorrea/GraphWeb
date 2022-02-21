@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import GraphViz from '../components/GraphViz';
-import { IconAdd, IconDelete, IconDownload } from '../components/Icons';
-import Input from '../components/Input';
+import { IconDelete, IconDownload } from '../components/Icons';
 import * as htmlToImage from 'html-to-image';
 import { saveAs } from 'file-saver';
-import Aresta from '../core/Aresta';
 import ConfigInit from '../components/ConfigInit';
 import useGraph from '../hooks/useGraph';
 import Menu from '../components/Menu';
 
 export default function Home() {
-  const { origem, destino, peso, dot, graph, vertices, tipo, arestas, comPeso, inicial,
+  const { dot, vertices, tipo, arestas, comPeso, inicial, click,
           setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial,
           selecionandoGrafo, aresta}
         = useGraph();
@@ -18,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     selecionandoGrafo();
-  },[graph])
+  },[click])
 
 
   function Download() {
@@ -69,7 +67,6 @@ export default function Home() {
                 onClick={() => {
                   setDot("");
                   setArestas([])
-                  setGraph([])
                   setVertices([])
                 }}>
                 {IconDelete}

@@ -12,6 +12,7 @@ export default function useGraph() {
     const [arestas, setArestas] = useState([])
     const [comPeso, setComPeso] = useState(false)
     const [inicial, setInicial] = useState(true)
+    const [click, setClick] = useState(0)
 
 
     function selecionandoGrafo() {
@@ -39,7 +40,6 @@ export default function useGraph() {
     
       function digrafoSemPeso() {
         var construindoGrafo = "";
-        setPeso(-1);
         for(var i=0; i<arestas.length; i++) {
           construindoGrafo += `${arestas[i].origem} -> ${arestas[i].destino};\n`
         }
@@ -56,7 +56,6 @@ export default function useGraph() {
     
       function grafoSemPeso() {
         var construindoGrafo = ""
-        setPeso(-1);
         for(var i=0; i<arestas.length; i++) {
           construindoGrafo += `${arestas[i].origem} -- ${arestas[i].destino};\n`
         }
@@ -65,6 +64,8 @@ export default function useGraph() {
     
       function aresta(){
         var flag = true
+        if(!comPeso) setPeso(-1);
+
         for(var i=0; i<arestas.length;i++){
           if(arestas[i].origem == origem && arestas[i].destino == destino){
             const novoPeso: number = parseInt(arestas[i].peso) + parseInt(peso)
@@ -78,9 +79,11 @@ export default function useGraph() {
         }
         
     
-        setGraph ( prev => {
+        /*setGraph ( prev => {
           return [...prev, [origem, destino, peso]]
-        })
+        })*/
+
+        setClick(click + 1)
     
         if(vertices.indexOf(origem) == -1){
           setVertices ( prev => {
@@ -101,8 +104,8 @@ export default function useGraph() {
     
 
     return {
-        origem, destino, peso, dot, graph, vertices, tipo, arestas, comPeso, inicial,
-        setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial,
+        origem, destino, peso, dot, graph, vertices, tipo, arestas, comPeso, inicial, click,
+        setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial, setClick,
         selecionandoGrafo, aresta, 
     }
 }
