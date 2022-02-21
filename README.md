@@ -15,11 +15,11 @@
     </ul>
     <div align = "center">
     <h3>Grafo não direcionado</h3>
-    <img src="https://user-images.githubusercontent.com/47988061/155004556-e9371621-9da1-4ae5-9fc0-992d58b73c5c.png"/>
+    <img src="https://user-images.githubusercontent.com/47988061/155004843-d5acb7c0-1369-4c75-b7f7-b736a2a6d5f5.gif"/>
     </div>
     <div align = "center">
     <h3>Grafo direcionado</h3>
-    <img src="https://user-images.githubusercontent.com/47988061/155004556-e9371621-9da1-4ae5-9fc0-992d58b73c5c.png"/>
+    <img src="https://user-images.githubusercontent.com/47988061/155004796-3f389e6e-f196-4ec4-b76b-b3f4bcd20463.gif"/>
     </div>
     <h3>Tecnologias utilizadas</h3>
     <ul>
