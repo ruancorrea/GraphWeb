@@ -68,7 +68,8 @@ export default function useGraph() {
 
         for(var i=0; i<arestas.length;i++){
           if(arestas[i].origem == origem && arestas[i].destino == destino){
-            const novoPeso: number = parseInt(arestas[i].peso) + parseInt(peso)
+            var peso_aux = peso.toString()
+            const novoPeso: number = parseInt(arestas[i].peso) + parseInt(peso_aux)
             arestas[i].setPeso = (novoPeso)
             flag = false
             setArestas(arestas)
