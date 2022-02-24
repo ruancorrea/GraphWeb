@@ -6,11 +6,12 @@ import { saveAs } from 'file-saver';
 import ConfigInit from '../components/ConfigInit';
 import useGraph from '../hooks/useGraph';
 import Menu from '../components/Menu';
+import ModalCard from '../components/ModalCard';
 
 export default function Home() {
-  const { dot, vertices, tipo, arestas, comPeso, inicial, click, textGraph,
+  const { dot, vertices, tipo, arestas, comPeso, inicial, click, textGraph, erro, modalVisivel,
           setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial,
-          selecionandoGrafo, aresta, setTextGraph, textCriarGrafo
+          selecionandoGrafo, aresta, setTextGraph, textCriarGrafo, setModalVisivel
         }
         = useGraph();
 
@@ -86,6 +87,7 @@ export default function Home() {
         }
 
       </div>
+      <ModalCard modalVisivel={modalVisivel} setModalVisivel={setModalVisivel} text={erro}/>
     </div>
   )
 }

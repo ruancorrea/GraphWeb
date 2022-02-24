@@ -14,6 +14,8 @@ export default function useGraph() {
     const [inicial, setInicial] = useState(true)
     const [click, setClick] = useState(0)
     const [textGraph, setTextGraph] = useState("")
+    const [modalVisivel, setModalVisivel] = useState(false);
+    const [erro, setErro] = useState("");
 
     function textCriarGrafo(){
      
@@ -34,33 +36,40 @@ export default function useGraph() {
 
             setArestas(prev => { return [...prev, new Aresta(o, d, p, `${arestas.length+1}`)]})
 
-            if(vertices2.indexOf(o) == -1) vertices2.push(o)
+            if(vertices2.indexOf(o) == -1) vertices2.push(o);
         
-            if(vertices2.indexOf(d) == -1) vertices2.push(d)       
+            if(vertices2.indexOf(d) == -1) vertices2.push(d);  
+
+
+            setClick(click + 1)
+            setVertices(vertices2)
+            console.log("VERTICES", vertices)     
           }
 
 
-          if(aresta.length == 2 && !comPeso){
+          else if(aresta.length == 2 && !comPeso){
             const o = aresta[0].toString()
             const d = aresta[1].toString()
             const p = -1
 
             setArestas(prev => { return [...prev, new Aresta(o, d, p, `${arestas.length+1}`)]})
             
-            if(vertices2.indexOf(o) == -1){
-              vertices2.push(o)
-            }
+            if(vertices2.indexOf(o) == -1) vertices2.push(o);
         
-            if(vertices2.indexOf(d) == -1){
-              vertices2.push(d)
-            }       
+            if(vertices2.indexOf(d) == -1) vertices2.push(d);  
+
+            setClick(click + 1)
+            setVertices(vertices2)
+            console.log("VERTICES", vertices)
           }
 
+          else {
+            setErro("Erro encontrado! Verifique as configurações iniciais e o texto inserido.");
+            setModalVisivel(true);
+          }
         }
 
-        setClick(click + 1)
-        setVertices(vertices2)
-        console.log("VERTICES", vertices)
+
       }
       
     }
@@ -166,8 +175,8 @@ export default function useGraph() {
     
 
     return {
-        origem, destino, peso, dot, graph, vertices, tipo, arestas, comPeso, inicial, click, textGraph, 
+        origem, destino, peso, dot, graph, vertices, tipo, arestas, comPeso, inicial, click, textGraph, modalVisivel, erro,
         setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial, setClick,
-        selecionandoGrafo, aresta, setTextGraph, textCriarGrafo
+        selecionandoGrafo, aresta, setTextGraph, textCriarGrafo, setModalVisivel
     }
 }
