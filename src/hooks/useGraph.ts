@@ -78,10 +78,10 @@ export default function useGraph() {
 
 
     function selecionandoGrafo() {
-        if(tipo == "digrafo" && comPeso){
+        if(tipo == "dígrafo" && comPeso){
           digrafoComPeso();
         }
-        if(tipo == "digrafo" && !comPeso){
+        if(tipo == "dígrafo" && !comPeso){
           digrafoSemPeso();
         }
         if (tipo == "grafo" && comPeso) {
@@ -130,7 +130,9 @@ export default function useGraph() {
     
 
       function aresta(){
-        console.log("ENTROU NA FUNÇÃO ARESTA")
+        console.log("ENTROU NA FUNÇÃO ARESTA");
+        console.log("origem", origem)
+        console.log("destino", destino)
         var flag = true
         if(!comPeso) setPeso(-1);
 

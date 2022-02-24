@@ -86,8 +86,8 @@ export default function Home() {
           </div>
         }
 
+        <ModalCard modalVisivel={modalVisivel} setModalVisivel={setModalVisivel} text={erro}/>
       </div>
-      <ModalCard modalVisivel={modalVisivel} setModalVisivel={setModalVisivel} text={erro}/>
     </div>
   )
 }
