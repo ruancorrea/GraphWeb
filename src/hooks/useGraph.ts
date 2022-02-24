@@ -32,9 +32,18 @@ export default function useGraph() {
             const o = aresta[0].toString()
             const d = aresta[1].toString()
             const p = parseInt(aresta[2])
+            var flag = true
+            for(var j=0; j<arestas.length;j++){
+              if(arestas[j].origem == o && arestas[j].destino == d){
+                var peso_aux = peso.toString()
+                const novoPeso: number = parseInt(arestas[j].peso) + p
+                arestas[j].setPeso = (novoPeso)
+                flag = false
+                setArestas(arestas)
+              }
+            }
 
-
-            setArestas(prev => { return [...prev, new Aresta(o, d, p, `${arestas.length+1}`)]})
+            if(flag) setArestas(prev => { return [...prev, new Aresta(o, d, p, `${arestas.length+1}`)]})
 
             if(vertices2.indexOf(o) == -1) vertices2.push(o);
         
@@ -51,8 +60,16 @@ export default function useGraph() {
             const o = aresta[0].toString()
             const d = aresta[1].toString()
             const p = -1
+            var flag = true
+            for(var j=0; j<arestas.length;j++){
+              if(arestas[j].origem == o && arestas[j].destino == d){
+                arestas[j].setPeso = (-1)
+                flag = false
+                setArestas(arestas)
+              }
+            }
 
-            setArestas(prev => { return [...prev, new Aresta(o, d, p, `${arestas.length+1}`)]})
+            if(flag) setArestas(prev => { return [...prev, new Aresta(o, d, p, `${arestas.length+1}`)]})
             
             if(vertices2.indexOf(o) == -1) vertices2.push(o);
         
