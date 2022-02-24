@@ -8,9 +8,10 @@ import useGraph from '../hooks/useGraph';
 import Menu from '../components/Menu';
 
 export default function Home() {
-  const { dot, vertices, tipo, arestas, comPeso, inicial, click,
+  const { dot, vertices, tipo, arestas, comPeso, inicial, click, textGraph,
           setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial,
-          selecionandoGrafo, aresta}
+          selecionandoGrafo, aresta, setTextGraph, textCriarGrafo
+        }
         = useGraph();
 
 
@@ -43,7 +44,8 @@ export default function Home() {
             :
             <Menu tipo={tipo} comPeso={comPeso} setOrigem={setOrigem} setDestino={setDestino} setPeso={setPeso}
               aresta={aresta} setDot={setDot} setArestas={setArestas} setGraph={setGraph} setVertices={setVertices}
-              setInicial={setInicial} verticesQtd={vertices.length} arestasQtd={arestas.length}
+              setInicial={setInicial} verticesQtd={vertices.length} arestasQtd={arestas.length} text={textGraph} 
+              setText={setTextGraph} textCriarGrafo={textCriarGrafo}
             />
           }
           </div>
@@ -52,7 +54,7 @@ export default function Home() {
         {
           dot ? 
           <div className='p-4'>
-            <label className="flex justify-center uppercase tracking-wide text-gray-700 text-md font-bold mb-2">
+            <label className="flex justify-center items-end uppercase tracking-wide text-gray-700 text-xl font-bold mb-2">
                 Grafo
               </label>
             <div id="#capture">
@@ -61,7 +63,9 @@ export default function Home() {
             <div className='flex justify-center p-2'>
               <button className="ml-2 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded" type="button"
                 onClick={Download}>
-                {IconDownload}
+                <small className='flex items-center'>
+                  {IconDownload} Download
+                </small>
               </button>
               <button className="ml-2 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded" type="button"
                 onClick={() => {
@@ -69,7 +73,9 @@ export default function Home() {
                   setArestas([])
                   setVertices([])
                 }}>
-                {IconDelete}
+                  <small className='flex items-center'>
+                    {IconDelete} Apagar 
+                  </small>
               </button>
             </div>
           </div>

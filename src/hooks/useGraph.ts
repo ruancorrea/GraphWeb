@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Aresta from "../core/Aresta"
 
 export default function useGraph() {
@@ -13,6 +13,59 @@ export default function useGraph() {
     const [comPeso, setComPeso] = useState(false)
     const [inicial, setInicial] = useState(true)
     const [click, setClick] = useState(0)
+    const [textGraph, setTextGraph] = useState("")
+
+    function textCriarGrafo(){
+     
+      if(textGraph.length > 0) {
+        const copyText = textGraph.split("/n");
+        const text = copyText[0].split("\n")
+        var vertices2 = []
+
+        console.log(text)
+        for(var i=0; i<text.length; i++) {
+          var aresta = text[i].split(" ")
+
+          if(aresta.length == 3 && comPeso){
+            const o = aresta[0].toString()
+            const d = aresta[1].toString()
+            const p = parseInt(aresta[2])
+
+
+            setArestas(prev => { return [...prev, new Aresta(o, d, p, `${arestas.length+1}`)]})
+
+            if(vertices2.indexOf(o) == -1) vertices2.push(o)
+        
+            if(vertices2.indexOf(d) == -1) vertices2.push(d)       
+          }
+
+
+          if(aresta.length == 2 && !comPeso){
+            const o = aresta[0].toString()
+            const d = aresta[1].toString()
+            const p = -1
+
+            setArestas(prev => { return [...prev, new Aresta(o, d, p, `${arestas.length+1}`)]})
+            
+            if(vertices2.indexOf(o) == -1){
+              vertices2.push(o)
+            }
+        
+            if(vertices2.indexOf(d) == -1){
+              vertices2.push(d)
+            }       
+          }
+
+        }
+
+        setClick(click + 1)
+        setVertices(vertices2)
+        console.log("VERTICES", vertices)
+      }
+      
+    }
+
+
 
 
     function selecionandoGrafo() {
@@ -37,6 +90,7 @@ export default function useGraph() {
         }
         if(construindoGrafo != "") setDot(`digraph{${construindoGrafo}}`)
       }
+
     
       function digrafoSemPeso() {
         var construindoGrafo = "";
@@ -45,6 +99,7 @@ export default function useGraph() {
         }
         if(construindoGrafo != "") setDot(`digraph{${construindoGrafo}}`)
       }
+
     
       function grafoComPeso() {
         var construindoGrafo = ""
@@ -53,6 +108,7 @@ export default function useGraph() {
         }
         if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
       }
+
     
       function grafoSemPeso() {
         var construindoGrafo = ""
@@ -61,8 +117,11 @@ export default function useGraph() {
         }
         if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
       }
+
     
+
       function aresta(){
+        console.log("ENTROU NA FUNÇÃO ARESTA")
         var flag = true
         if(!comPeso) setPeso(-1);
 
@@ -97,6 +156,8 @@ export default function useGraph() {
             return [...prev, destino]
           }) 
         }
+
+        console.log("VERTICES", vertices)
     
        /* const novaAresta = `${origem} -> ${destino}[label="${peso}",weight="${peso}"];\n`
         setArestas(arestas + novaAresta);
@@ -105,8 +166,8 @@ export default function useGraph() {
     
 
     return {
-        origem, destino, peso, dot, graph, vertices, tipo, arestas, comPeso, inicial, click,
+        origem, destino, peso, dot, graph, vertices, tipo, arestas, comPeso, inicial, click, textGraph, 
         setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial, setClick,
-        selecionandoGrafo, aresta, 
+        selecionandoGrafo, aresta, setTextGraph, textCriarGrafo
     }
 }

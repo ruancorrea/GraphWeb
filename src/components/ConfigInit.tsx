@@ -19,9 +19,9 @@ export default function ConfigInit(props: ConfigInitProps) {
                         border border-solid border-gray-300
                         rounded transition ease-in-out m-0
                         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                          <option selected disabled>Selecione o tipo de grafo</option>
+                          <option disabled>Selecione o tipo de grafo</option>
                           <option value="grafo">Grafo não direcional</option>
-                          <option value="digrafo">Grafo direcional (digrafo)</option>
+                          <option value="dígrafo">Grafo direcional (dígrafo)</option>
                       </select>
                     </div>
                     <button type="button"  onClick={() => props.setComPeso(!props.comPeso)}
