@@ -83,6 +83,9 @@ export default function useGraph() {
           else {
             setErro("Erro encontrado! Verifique as configurações iniciais e o texto inserido.");
             setModalVisivel(true);
+            setDot("");
+            setArestas([]);
+            setVertices([]);
           }
         }
 
@@ -95,10 +98,10 @@ export default function useGraph() {
 
 
     function selecionandoGrafo() {
-        if(tipo == "dígrafo" && comPeso){
+        if(tipo == "digrafo" && comPeso){
           digrafoComPeso();
         }
-        if(tipo == "dígrafo" && !comPeso){
+        if(tipo == "digrafo" && !comPeso){
           digrafoSemPeso();
         }
         if (tipo == "grafo" && comPeso) {

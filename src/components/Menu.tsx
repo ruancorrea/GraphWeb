@@ -25,6 +25,7 @@ export default function Menu(props: MenuProps) {
     const [arestaAvulsa, setArestaAvulsa] = useState(true);
     const [addAresta, setAddAresta]= useState(false);
     const [addGrafo, setAddGrafo]  = useState(true);
+    
     useEffect(() => {
       setAddAresta(arestaAvulsa)
       setAddGrafo(!arestaAvulsa)
