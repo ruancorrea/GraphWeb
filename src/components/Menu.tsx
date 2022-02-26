@@ -42,7 +42,7 @@ export default function Menu(props: MenuProps) {
             {props.tipo} {props.comPeso ? "com peso" : "sem peso"}
           </label>
 
-          <div style={{width: '156px'}} className="border-b m-auto border-gray-200 dark:border-gray-700">
+          <div style={{width: '160px'}} className="border-b m-auto border-gray-200 dark:border-gray-700">
             <ul className="flex flex-wrap -mb-px">
               { addAresta ?
               <>
