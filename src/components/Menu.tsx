@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import ArestaAvulsa from "./ArestaAvulsa";
+import { IconAtualizar, IconConfig } from "./Icons";
+import ModalCard from "./ModalCard";
 import Text from "./Text";
 
 interface MenuProps {
@@ -19,13 +21,15 @@ interface MenuProps {
     setInicial: (value: boolean) => void
     verticesQtd: number
     arestasQtd: number
+    textExamplePlaceholder: string
+    reinitSystem: () => void
 }
 
 export default function Menu(props: MenuProps) {
     const [arestaAvulsa, setArestaAvulsa] = useState(true);
     const [addAresta, setAddAresta]= useState(false);
     const [addGrafo, setAddGrafo]  = useState(true);
-    
+    const [modalSistemaVisivel, setModalSistemaVisivel] = useState(false)
     useEffect(() => {
       setAddAresta(arestaAvulsa)
       setAddGrafo(!arestaAvulsa)
@@ -34,25 +38,34 @@ export default function Menu(props: MenuProps) {
 
     return (
         <div className="max-w-xl p-4">
-          <label className="flex justify-center uppercase tracking-wide text-gray-700 text-xl font-bold mb-2">
+          <label className="flex dark:text-gray-300 justify-center uppercase tracking-wide text-gray-700 text-xl font-bold mb-2">
             {props.tipo} {props.comPeso ? "com peso" : "sem peso"}
           </label>
 
-          <ul className="flex border-b my-2">
-            <li className="-mb-px mr-1">
-              <button type="button" onClick={()=>setArestaAvulsa(true)} disabled={addAresta} 
-              className="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold">
-               <small>Add uma aresta</small>
-                </button>
-            </li>
-            <li className="mr-1">
-              <button type="button" onClick={()=>setArestaAvulsa(false)} disabled={addGrafo}
-              className="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold">
-                <small>Add grafo por texto</small>
-                </button>
-            </li>
-          </ul>
-
+          <div style={{width: '156px'}} className="border-b m-auto border-gray-200 dark:border-gray-700">
+            <ul className="flex flex-wrap -mb-px">
+              { addAresta ?
+              <>
+                <li className="mr-2">
+                  <button type="button" title="Adicionar uma aresta por vez" onClick={()=>setArestaAvulsa(true)} disabled={addAresta} className="inline-block py-4 px-4 text-sm font-medium text-center text-blue-600 rounded-t-lg border-b-2 border-blue-600 active dark:text-blue-500 dark:border-blue-500" aria-current="page">Aresta</button>
+                </li>
+                <li className="mr-2">
+                    <button type="button" title="Adicionar arestas como texto" onClick={()=>setArestaAvulsa(false)} disabled={addGrafo} className="inline-block py-4 px-4 text-sm font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">Grafo</button>
+                </li> 
+              </>
+            :
+                    <>
+                <li className="mr-2">
+                    <button type="button" title="Adicionar uma aresta por vez" onClick={()=>setArestaAvulsa(true)} disabled={addAresta} className="inline-block py-4 px-4 text-sm font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">Aresta</button>
+                </li>
+                <li className="mr-2">
+                    <button type="button" title="Adicionar arestas como texto" onClick={()=>setArestaAvulsa(false)} disabled={addGrafo} className="inline-block py-4 px-4 text-sm font-medium text-center text-blue-600 rounded-t-lg border-b-2 border-blue-600 active dark:text-blue-500 dark:border-blue-500" aria-current="page">Grafo</button>
+                </li>
+                    </>
+                }
+            </ul>
+        </div>
+          <div className="mt-4">
             {
               arestaAvulsa ?
               
@@ -64,19 +77,13 @@ export default function Menu(props: MenuProps) {
               setPeso={props.setPeso} 
               />
               :
-              <Text text={props.text} setText={props.setText} textCriarGrafo={props.textCriarGrafo}/>
+              <Text 
+              text={props.text} 
+              setText={props.setText} 
+              textCriarGrafo={props.textCriarGrafo}
+              textExamplePlaceholder={props.textExamplePlaceholder}/>
             }
-
-            <div className='flex justify-center mt-6'>
-              <label className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2">N° Vértices: {props.verticesQtd}</label>
-              <label className="ml-4 block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2">N° Arestas: {props.arestasQtd}</label>
-            </div>
-            <div className='flex justify-center'>
-              <button type='button'
-                className="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out" onClick={() => {
-                  props.setInicial(true)
-              }}>Reiniciar configurações</button>
-            </div>
           </div>
+        </div>
     )
 }

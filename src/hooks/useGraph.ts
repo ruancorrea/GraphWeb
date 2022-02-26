@@ -8,7 +8,7 @@ export default function useGraph() {
     const [dot, setDot] = useState('')
     const [graph, setGraph] = useState([])
     const [vertices, setVertices] = useState([])
-    const [tipo, setTipo] = useState("digrafo")
+    const [tipo, setTipo] = useState("grafo")
     const [arestas, setArestas] = useState([])
     const [comPeso, setComPeso] = useState(false)
     const [inicial, setInicial] = useState(true)
@@ -16,6 +16,28 @@ export default function useGraph() {
     const [textGraph, setTextGraph] = useState("")
     const [modalVisivel, setModalVisivel] = useState(false);
     const [erro, setErro] = useState("");
+    const [textExamplePlaceholder, setTextExamplePlaceholder] = useState("Example:\n0 1\n0 2\n1 2\n2 3")
+
+    useEffect(() => {
+      setTextExamplePlaceholder(comPeso ?"Example:\n0 1 2\n0 2 3\n1 2 4\n2 3 2" :"Example:\n0 1\n0 2\n1 2\n2 3")
+    },[comPeso])
+
+    function reinitSystem() {
+      setOrigem("")
+      setDestino("")
+      setPeso(0)
+      setDot('')
+      setGraph([])
+      setVertices([])
+      setTipo('grafo')
+      setArestas([])
+      setComPeso(false)
+      setInicial(true)
+      setClick(0)
+      setTextGraph('')
+      setModalVisivel(false)
+      setErro("")
+    }
 
     function textCriarGrafo(){
      
@@ -197,8 +219,8 @@ export default function useGraph() {
     
 
     return {
-        origem, destino, peso, dot, graph, vertices, tipo, arestas, comPeso, inicial, click, textGraph, modalVisivel, erro,
+        origem, destino, peso, dot, graph, vertices, tipo, arestas, comPeso, inicial, click, textGraph, modalVisivel, erro, textExamplePlaceholder,
         setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial, setClick,
-        selecionandoGrafo, aresta, setTextGraph, textCriarGrafo, setModalVisivel
+        selecionandoGrafo, aresta, setTextGraph, textCriarGrafo, setModalVisivel, reinitSystem
     }
 }

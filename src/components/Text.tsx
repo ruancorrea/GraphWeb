@@ -5,6 +5,7 @@ interface TextProps {
     text: string
     setText: (t: string) => void
     textCriarGrafo: () => void
+    textExamplePlaceholder: string
 }
 
 export default function Text(props: TextProps) {
@@ -13,8 +14,12 @@ export default function Text(props: TextProps) {
 
     return (
         <div>
+            <label className="flex dark:text-gray-300 justify-center uppercase tracking-wide text-gray-700 text-md font-bold mb-2">
+                Adicionando um grafo por texto
+              </label>
             <div className="flex justify-center">
             <textarea 
+                placeholder={props.textExamplePlaceholder}
                 className={`rounded-mdtransition ease-in-out 
                 max-w-full h-96 p-4 w-full
                 md:mx-4 
@@ -28,7 +33,7 @@ export default function Text(props: TextProps) {
                 value={props.text} />
             </div>
 
-            <div className='flex py-2 justify-center'>
+            <div className='flex py-4 justify-center'>
                 <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded" type="button"
                 onClick={() => {props.textCriarGrafo();}}>
                 <small className='flex items-center'>

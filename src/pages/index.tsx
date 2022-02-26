@@ -7,14 +7,14 @@ import ConfigInit from '../components/ConfigInit';
 import useGraph from '../hooks/useGraph';
 import Menu from '../components/Menu';
 import ModalCard from '../components/ModalCard';
+import Navbar from '../components/Navbar';
 
 export default function Home() {
-  const { dot, vertices, tipo, arestas, comPeso, inicial, click, textGraph, erro, modalVisivel,
+  const { dot, vertices, tipo, arestas, comPeso, inicial, click, textGraph, erro, modalVisivel, textExamplePlaceholder,
           setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial,
-          selecionandoGrafo, aresta, setTextGraph, textCriarGrafo, setModalVisivel
+          selecionandoGrafo, aresta, setTextGraph, textCriarGrafo, setModalVisivel, reinitSystem
         }
         = useGraph();
-
 
   useEffect(() => {
     selecionandoGrafo();
@@ -33,11 +33,9 @@ export default function Home() {
 
   return (
     <div>
-       <div className="flex w-full items-center flex-shrink-0 text-white mr-6 p-6 bg-slate-700 mb-1">
-        <span className="font-semibold text-xl tracking-tight ml-2">Criador de Grafos</span>
-      </div>
+       <Navbar setInicial={setInicial} qtdvertices={vertices.length} qtdarestas={arestas.length} reinitSystem={reinitSystem} />
       <div className='grid md:grid-cols-2 grid-cols-1 '>  
-        <div className='flex min-h-screen w-full items-center justify-center bg-gray-100 p-4'>
+        <div className='flex min-h-screen w-full items-center justify-center bg-gray-100 p-4 dark:bg-gray-800'>
           {
             inicial 
             ?
@@ -46,7 +44,8 @@ export default function Home() {
             <Menu tipo={tipo} comPeso={comPeso} setOrigem={setOrigem} setDestino={setDestino} setPeso={setPeso}
               aresta={aresta} setDot={setDot} setArestas={setArestas} setGraph={setGraph} setVertices={setVertices}
               setInicial={setInicial} verticesQtd={vertices.length} arestasQtd={arestas.length} text={textGraph} 
-              setText={setTextGraph} textCriarGrafo={textCriarGrafo}
+              setText={setTextGraph} textCriarGrafo={textCriarGrafo} textExamplePlaceholder={textExamplePlaceholder}
+              reinitSystem={reinitSystem}
             />
           }
           </div>
@@ -55,7 +54,7 @@ export default function Home() {
         {
           dot ? 
           <div className='p-4'>
-            <label className="flex justify-center items-end uppercase tracking-wide text-gray-700 text-xl font-bold mb-2">
+            <label className="flex dark:text-gray-300 justify-center items-end uppercase tracking-wide text-gray-700 text-xl font-bold mb-2">
                 Grafo
               </label>
             <div id="#capture">
