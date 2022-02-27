@@ -52,7 +52,7 @@ export default function useGraph() {
           var aresta = text[i].split(" ")
           var qtd = aresta.length
           if(qtd==1 && aresta[0] == '') continue;
-          
+
           if(aresta[aresta.length-1] == '') qtd = qtd-1
           console.log("aresta", aresta)
 
@@ -303,7 +303,8 @@ export default function useGraph() {
         for(var j=0;j<arestas.length;j++) {
           var flag = false
           for(var i=0; i<spanningTree.length;i++) {
-            if(spanningTree[i][0] == arestas[j].to && spanningTree[i][1] == arestas[j].from) {
+            if(spanningTree[i][0] == arestas[j].to && spanningTree[i][1] == arestas[j].from ||
+              spanningTree[i][1] == arestas[j].to && spanningTree[i][0] == arestas[j].from ) {
               console.log("entrou")
               construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"][color=red,penwidth=3.0];\n`
               flag = true
