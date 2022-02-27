@@ -43,8 +43,8 @@ export default function ConfigInit(props: ConfigInitProps) {
                     <div className="mb-14 xl:w-96">
                     <label htmlFor="countries" className="block mb-2 text-sm font-medium">Selecione o tipo de grafo</label>
                       <select onChange={(e: any) => props.setTipo(e.target.value)} id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                          <option value="grafo">Grafo não direcional</option>
                           <option value="digrafo">Grafo direcional (dígrafo)</option>
+                          <option value="grafo">Grafo não direcional</option>
                       </select>
                       
                     </div>

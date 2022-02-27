@@ -1,14 +1,14 @@
 export default class Aresta {
     #id: string
-    #origem: string
-    #destino: string
-    #peso: number
+    #from: string
+    #to: string
+    #weight: number
 
-    constructor(origem: string, destino: string, peso: number, id: string){
+    constructor(from: string, to: string, weight: number, id: string){
         this.#id = id
-        this.#origem = origem
-        this.#destino = destino
-        this.#peso = peso
+        this.#from = from
+        this.#to = to
+        this.#weight = weight
     }
 
     static vazio() {
@@ -19,20 +19,20 @@ export default class Aresta {
         return this.#id
     }
 
-    get origem() {
-        return this.#origem
+    get from() {
+        return this.#from
     }
 
-    get destino() {
-        return this.#destino
+    get to() {
+        return this.#to
     }
 
-    get peso () {
-        return this.#peso
+    get weight () {
+        return this.#weight
     }
 
-    set setPeso (peso: number) {
-        this.#peso = peso
+    set setWeight (weight: number) {
+        this.#weight = weight
     }
 
 }

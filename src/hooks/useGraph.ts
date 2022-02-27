@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Aresta from "../core/Aresta"
+import { kruskal, Edge } from 'kruskal-mst';
 
 export default function useGraph() {
     const [origem, setOrigem] = useState("")
@@ -8,9 +9,9 @@ export default function useGraph() {
     const [dot, setDot] = useState('')
     const [graph, setGraph] = useState([])
     const [vertices, setVertices] = useState([])
-    const [tipo, setTipo] = useState("grafo")
+    const [tipo, setTipo] = useState("digrafo")
     const [arestas, setArestas] = useState([])
-    const [comPeso, setComPeso] = useState(false)
+    const [comPeso, setComPeso] = useState(true)
     const [inicial, setInicial] = useState(true)
     const [click, setClick] = useState(0)
     const [textGraph, setTextGraph] = useState("")
@@ -29,9 +30,9 @@ export default function useGraph() {
       setDot('')
       setGraph([])
       setVertices([])
-      setTipo('grafo')
+      setTipo('digrafo')
       setArestas([])
-      setComPeso(false)
+      setComPeso(true)
       setInicial(true)
       setClick(0)
       setTextGraph('')
@@ -49,16 +50,21 @@ export default function useGraph() {
         console.log(text)
         for(var i=0; i<text.length; i++) {
           var aresta = text[i].split(" ")
+          var qtd = aresta.length
+          if(qtd==1 && aresta[0] == '') continue;
+          
+          if(aresta[aresta.length-1] == '') qtd = qtd-1
+          console.log("aresta", aresta)
 
-          if(aresta.length == 3 && comPeso){
+          if(qtd == 3 && comPeso){
             const o = aresta[0].toString()
             const d = aresta[1].toString()
             const p = parseInt(aresta[2])
             var flag = true
             for(var j=0; j<arestas.length;j++){
-              if(arestas[j].origem == o && arestas[j].destino == d){
+              if(arestas[j].from == o && arestas[j].to == d){
                 var peso_aux = peso.toString()
-                const novoPeso: number = parseInt(arestas[j].peso) + p
+                const novoPeso: number = parseInt(arestas[j].weight) + p
                 arestas[j].setPeso = (novoPeso)
                 flag = false
                 setArestas(arestas)
@@ -78,14 +84,14 @@ export default function useGraph() {
           }
 
 
-          else if(aresta.length == 2 && !comPeso){
+          else if(qtd == 2 && !comPeso){
             const o = aresta[0].toString()
             const d = aresta[1].toString()
             const p = -1
             var flag = true
             for(var j=0; j<arestas.length;j++){
-              if(arestas[j].origem == o && arestas[j].destino == d){
-                arestas[j].setPeso = (-1)
+              if(arestas[j].from == o && arestas[j].to == d){
+                arestas[j].setWeight = (-1)
                 flag = false
                 setArestas(arestas)
               }
@@ -137,7 +143,7 @@ export default function useGraph() {
       function digrafoComPeso() {
         var construindoGrafo = ""
         for(var i=0; i<arestas.length; i++) {
-          construindoGrafo += `${arestas[i].origem} -> ${arestas[i].destino}[label="${arestas[i].peso}",weight="${arestas[i].peso}"];\n`
+          construindoGrafo += `${arestas[i].from} -> ${arestas[i].to}[label="${arestas[i].weight}",weight="${arestas[i].weight}"];\n`
         }
         if(construindoGrafo != "") setDot(`digraph{${construindoGrafo}}`)
       }
@@ -146,7 +152,7 @@ export default function useGraph() {
       function digrafoSemPeso() {
         var construindoGrafo = "";
         for(var i=0; i<arestas.length; i++) {
-          construindoGrafo += `${arestas[i].origem} -> ${arestas[i].destino};\n`
+          construindoGrafo += `${arestas[i].from} -> ${arestas[i].to};\n`
         }
         if(construindoGrafo != "") setDot(`digraph{${construindoGrafo}}`)
       }
@@ -155,7 +161,7 @@ export default function useGraph() {
       function grafoComPeso() {
         var construindoGrafo = ""
         for(var i=0; i<arestas.length; i++) {
-          construindoGrafo += `${arestas[i].origem} -- ${arestas[i].destino}[label="${arestas[i].peso}",weight="${arestas[i].peso}"];\n`
+          construindoGrafo += `${arestas[i].from} -- ${arestas[i].to}[label="${arestas[i].weight}",weight="${arestas[i].weight}"];\n`
         }
         if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
       }
@@ -164,24 +170,19 @@ export default function useGraph() {
       function grafoSemPeso() {
         var construindoGrafo = ""
         for(var i=0; i<arestas.length; i++) {
-          construindoGrafo += `${arestas[i].origem} -- ${arestas[i].destino};\n`
+          construindoGrafo += `${arestas[i].from} -- ${arestas[i].to};\n`
         }
         if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
       }
 
-    
-
       function aresta(){
-        console.log("ENTROU NA FUNÇÃO ARESTA");
-        console.log("origem", origem)
-        console.log("destino", destino)
         var flag = true
         if(!comPeso) setPeso(-1);
 
         for(var i=0; i<arestas.length;i++){
-          if(arestas[i].origem == origem && arestas[i].destino == destino){
+          if(arestas[i].from == origem && arestas[i].to == destino){
             var peso_aux = peso.toString()
-            const novoPeso: number = parseInt(arestas[i].peso) + parseInt(peso_aux)
+            const novoPeso: number = parseInt(arestas[i].weight) + parseInt(peso_aux)
             arestas[i].setPeso = (novoPeso)
             flag = false
             setArestas(arestas)
@@ -191,11 +192,6 @@ export default function useGraph() {
           setArestas(prev => { return [...prev, new Aresta(origem, destino, peso, `${arestas.length+1}`)]})
         }
         
-    
-        /*setGraph ( prev => {
-          return [...prev, [origem, destino, peso]]
-        })*/
-
         setClick(click + 1)
     
         if(vertices.indexOf(origem) == -1){
@@ -210,17 +206,125 @@ export default function useGraph() {
           }) 
         }
 
-        console.log("VERTICES", vertices)
-    
-       /* const novaAresta = `${origem} -> ${destino}[label="${peso}",weight="${peso}"];\n`
-        setArestas(arestas + novaAresta);
-        setDot(`digraph{${arestas + novaAresta}}`) */
       }
+
+      function CaminhoDijkstra() {
+        if(tipo == "digrafo" && comPeso){
+
+          const Graph = require('node-dijkstra')
+          var newMap = []
+          const graph = new Map()
+          
+          for(var i=0;i<vertices.length;i++){
+            newMap.push(new Map())
+          }
+          
+          for(var j=0; j< arestas.length;j++){
+            for(var i=0;i<vertices.length;i++){
+              if(arestas[j].from == vertices[i] && arestas[j].weight >= 0){
+                newMap[i].set(arestas[j].to, arestas[j].weight);
+              }else if(arestas[j].weight < 0){
+                setErro("Dijkstra: Peso negativo encontrado.");
+                setModalVisivel(true);
+                return
+              }
+            }
+          }
+          
+          for(var i=0;i<vertices.length;i++) graph.set(vertices[i], newMap[i])
+          
+          const route = new Graph(graph)
+          const path = route.path(vertices[0], vertices[vertices.length-1])
+          var redsArestas = []
+          var construindoGrafo = ""
+          
+          console.log("Path", path) // se o path dar null entao nao há solução
+          if(path != null){
+            
+            for(var i=0;i<path.length;i++){
+              if (i+1 <= path.length) {
+                for(var j=0;j<arestas.length;j++){
+                  if(arestas[j].from == path[i] && arestas[j].to == path[i+1]) redsArestas.push(j)
+                }
+              }
+            }
+            for(var j=0;j<arestas.length;j++) {
+              if(redsArestas.indexOf(j) != -1) {
+                construindoGrafo += `${arestas[j].from} -> ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"][color=red,penwidth=3.0];\n`
+              } else construindoGrafo += `${arestas[j].from} -> ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"];\n`
+              
+            }
+            
+            if(construindoGrafo != "") setDot(`digraph{${construindoGrafo}}`)
+          } else {
+            setErro("Dijkstra: Menor caminho não encontrado.");
+            setModalVisivel(true);
+          }
+        }else {
+            setErro("Dijkstra: Erro encontrado. Grafo precisa ser direcionado (digrado) e é necessário ter peso positivo.");
+            setModalVisivel(true);
+        }
+      }
+
+    function CaminhoKruskal() {
+      if(tipo == "grafo" && comPeso){
+        const spanningTree = kruskal(arestas);
+        var construindoGrafo = ""
+        for(var j=0;j<arestas.length;j++) {
+          var flag = false
+          for(var i=0; i<spanningTree.length;i++) {
+            if(spanningTree[i] == arestas[j]) {
+              construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"][color=red,penwidth=3.0];\n`
+              flag = true
+            }
+          }
+          if(!flag) construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"];\n`
+        }
+        if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
+      }else {
+        setErro("Kruskal: Erro encontrado. Grafo precisa ser não direcionado e é necessário ter peso.");
+        setModalVisivel(true);
+      }
+    }
+
+    function CaminhoPrim() {
+      if(tipo == "grafo" && comPeso){
+        var prim = require('prim-mst');
+        var graph = []
+        
+        for(var i=0; i<arestas.length;i++) graph.push([arestas[i].from, arestas[i].to, arestas[i].weight])
+        
+        const spanningTree = prim(graph)
+        console.log("prim", spanningTree)
+        for(var i=0; i<spanningTree.length;i++) {       
+          console.log(spanningTree[i][0],",",spanningTree[i][1], ",",spanningTree[i][2])
+        }  
+        var construindoGrafo = ""
+        for(var j=0;j<arestas.length;j++) {
+          var flag = false
+          for(var i=0; i<spanningTree.length;i++) {
+            if(spanningTree[i][0] == arestas[j].to && spanningTree[i][1] == arestas[j].from) {
+              console.log("entrou")
+              construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"][color=red,penwidth=3.0];\n`
+              flag = true
+            }
+          }
+          if(!flag) construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"];\n`
+        }
+        if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
+      } else{
+        setErro("Prim: Erro encontrado. Grafo precisa ser não direcionado e é necessário ter peso.");
+        setModalVisivel(true);
+      }
+    }
+      
+
     
 
     return {
         origem, destino, peso, dot, graph, vertices, tipo, arestas, comPeso, inicial, click, textGraph, modalVisivel, erro, textExamplePlaceholder,
         setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial, setClick,
-        selecionandoGrafo, aresta, setTextGraph, textCriarGrafo, setModalVisivel, reinitSystem
+        selecionandoGrafo, aresta, setTextGraph, textCriarGrafo, setModalVisivel, reinitSystem,
+        CaminhoDijkstra, CaminhoKruskal, CaminhoPrim
     }
 }
