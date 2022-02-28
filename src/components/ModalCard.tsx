@@ -1,12 +1,16 @@
+import { useState } from "react"
 
 interface ModalCardProps {
     modalVisivel: boolean
     setModalVisivel: (b: boolean) => void
     function?: () => void
     text: string
+    dijkstra?: (inicial: string, final: string) => void
 }
 
 export default function ModalCard (props: ModalCardProps) {
+    const [verticeOrigem, setVerticeOrigem] = useState("");
+    const [verticeDestino, setVerticeDestino] = useState("")
     return (
         <div className="flex w-screen items-center justify-center">
             {
@@ -28,9 +32,43 @@ export default function ModalCard (props: ModalCardProps) {
                                 <svg className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 <h3 className="mb-5 text-lg font-bold text-gray-500 dark:text-gray-400">{props.text}</h3>
+
+                                    {
+                                        props.dijkstra ?
+                                        <>
+                                            <div className="grid xl:grid-cols-2 xl:gap-6">
+                                                <div className="relative z-0 mb-6 w-full group">
+                                                    <input  onChange={(e) => {setVerticeOrigem(e.target.value)}} type="text" name="floating_first_name" id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                                    <label htmlFor="floating_first_name" className="absolute left-0 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Vértice origem</label>
+                                                </div>
+                                                <div className="relative z-0 mb-6 w-full group">
+                                                    <input onChange={(e) => {setVerticeDestino(e.target.value)}} type="text" name="floating_last_name" id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                                    <label htmlFor="floating_last_name" className="absolute left-0 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Vértice Destino</label>
+                                                </div>
+                                            </div>
+                                            <div className="flex space-x-2 justify-center">
+                                                <button onClick={() => {
+                                                    props.setModalVisivel(false);
+                                                    props.dijkstra(verticeOrigem, verticeDestino);
+                                                }}
+                                                data-modal-toggle="popup-modal" type="button" className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                                    Aplicar Dijkstra
+                                                </button>
+                                                <button onClick={() => {
+                                                    props.setModalVisivel(false);
+                                                }}
+                                                data-modal-toggle="popup-modal" type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                                    Cancelar
+                                                </button>
+                                            </div>
+                                        </>
+                                        :
+                                        <>
+                                        </>
+                                    }
                                     
                                     {
-                                        props.function ?
+                                        props.function  ?
                                         <div className="flex space-x-2 justify-center">
                                             <button onClick={() => {
                                                 props.setModalVisivel(false);
@@ -48,12 +86,21 @@ export default function ModalCard (props: ModalCardProps) {
                                         </div>
                                         :
 
+                                        <></>
+
+                                    }
+
+                                    {
+                                        !props.function && !props.dijkstra ?
+
                                         <button onClick={() => {
                                             props.setModalVisivel(false);
                                         }}
                                         data-modal-toggle="popup-modal" type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                                             Entendi!
                                         </button>
+                                        :
+                                        <></>
                                     }
 
 

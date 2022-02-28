@@ -19,6 +19,8 @@ export default function Home() {
         = useGraph();
   const [sidebar, setSidebar] = useState(true);
 
+  const [modalDijkstraVisivel, setModalDijkstraVisivel] = useState(false);
+
   useEffect(() => {
     selecionandoGrafo();
   },[click])
@@ -109,16 +111,16 @@ export default function Home() {
               </div>
               {comPeso ?
                 <div className="flex rounded-md justify-center mt-2 shadow-sm" role="group">
-                  <button type="button" onClick={() => selecionandoGrafo()} className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                  <button type="button" onClick={() => selecionandoGrafo()} className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-md border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                     Normal 
                   </button>
-                  <button type="button" onClick={() => CaminhoDijkstra()} className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                  <button type="button" onClick={() => setModalDijkstraVisivel(true)} className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-r border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                     Dijkstra
                   </button>
-                  <button type="button" onClick={() => CaminhoKruskal()} className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                  <button type="button" onClick={() => CaminhoKruskal()}              className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                     Kruskal
                   </button>
-                  <button type="button" onClick={() => CaminhoPrim()} className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-r-md border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                  <button type="button" onClick={() => CaminhoPrim()}                 className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-r-md border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                     Prim
                   </button>
                 </div>
@@ -133,6 +135,8 @@ export default function Home() {
         }
 
         <ModalCard modalVisivel={modalVisivel} setModalVisivel={setModalVisivel} text={erro}/>
+        <ModalCard modalVisivel={modalDijkstraVisivel} dijkstra={CaminhoDijkstra} setModalVisivel={setModalDijkstraVisivel} text={`Informe o vértice inicial e o vértice final para encontrar o caminho Dijkstra.\nVértices adicionados: ${vertices}`}/>
+
       </div>
     </div>
   )

@@ -210,7 +210,12 @@ export default function useGraph() {
 
       }
 
-      function CaminhoDijkstra() {
+      function CaminhoDijkstra(verticeInicial: string, verticeFinal: string) {
+        if(vertices.indexOf(verticeInicial) == -1 || vertices.indexOf(verticeFinal) == -1) {
+          setErro("Dijkstra: Algum vértice informado não está presente entre os vértices adicionados no grafo.");
+          setModalVisivel(true);
+          return
+        }
         if(tipo == "digrafo" && comPeso){
 
           const Graph = require('node-dijkstra')
@@ -236,8 +241,6 @@ export default function useGraph() {
           }
           
           for(var i=0;i<vertices.length;i++) graph.set(vertices[i], newMap[i])
-          const verticeInicial = vertices[0]
-          const verticeFinal = vertices[vertices.length-1]
 
           console.log("inicial",verticeInicial)
           console.log("final",verticeFinal)
@@ -276,6 +279,7 @@ export default function useGraph() {
       }
 
     function CaminhoKruskal() {
+      var verticesVerificados = [] // ainda com erro
       if(tipo == "grafo" && comPeso){
         const spanningTree = kruskal(arestas);
         var construindoGrafo = ""
@@ -285,11 +289,18 @@ export default function useGraph() {
             if(spanningTree[i] == arestas[j]) {
               construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"][color=red,penwidth=3.0];\n`
               flag = true
+              if(verticesVerificados.indexOf(arestas[j].from) == -1) verticesVerificados.push(arestas[j].from)  
+              if(verticesVerificados.indexOf(arestas[j].to) == -1) verticesVerificados.push(arestas[j].to)  
             }
           }
           if(!flag) construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"];\n`
         }
-        if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
+        if(vertices.length == verticesVerificados.length) {
+          if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
+        } else {
+          setErro("Kruskal: Erro encontrado. MST não encontrado.");
+          setModalVisivel(true);
+        }
       }else {
         setErro("Kruskal: Erro encontrado. Grafo precisa ser não direcionado e é necessário ter peso.");
         setModalVisivel(true);
@@ -297,6 +308,8 @@ export default function useGraph() {
     }
 
     function CaminhoPrim() {
+      var verticesVerificados = []
+
       if(tipo == "grafo" && comPeso){
         var prim = require('prim-mst');
         var graph = []
@@ -315,13 +328,20 @@ export default function useGraph() {
             if(spanningTree[i][0] == arestas[j].to && spanningTree[i][1] == arestas[j].from ||
               spanningTree[i][1] == arestas[j].to && spanningTree[i][0] == arestas[j].from ) {
               console.log("entrou")
+              if(verticesVerificados.indexOf(arestas[j].from) == -1) verticesVerificados.push(arestas[j].from)  
+              if(verticesVerificados.indexOf(arestas[j].to) == -1) verticesVerificados.push(arestas[j].to)  
               construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"][color=red,penwidth=3.0];\n`
               flag = true
             }
           }
           if(!flag) construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"];\n`
         }
-        if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
+        if(vertices.length == verticesVerificados.length) {
+          if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
+        } else {
+          setErro("Prim: MST não encontrado.");
+          setModalVisivel(true);
+        }
       } else{
         setErro("Prim: Erro encontrado. Grafo precisa ser não direcionado e é necessário ter peso.");
         setModalVisivel(true);
