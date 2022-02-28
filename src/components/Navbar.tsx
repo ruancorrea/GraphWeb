@@ -20,7 +20,7 @@ export default function Navbar(props: NavbarProps) {
     }, []);
 
     return(
-        <div className="w-full flex-shrink-0 dark:text-gray-300 text-gray-800 mr-6 p-6 bg-gray-300 dark:bg-slate-900 mb-1">
+        <div className="w-full sm:hidden block  dark:text-gray-300 text-gray-800 mr-6 p-6 bg-gray-300 dark:bg-slate-900 mb-1">
             <div className="flex md:flex-row justify-between items-center">
 
                 <span className="font-semibold text-xl tracking-tight md:ml-2">Criador de Grafos</span>
@@ -42,7 +42,7 @@ export default function Navbar(props: NavbarProps) {
                         setModalSistemaVisivel(true);
                     }}> <small className="flex items-center">{IconAtualizar}</small>
                     </button>
-                <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} title={theme == "dark" ? "Modo light" : "Modo dark"}>
+                    <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} title={theme == "dark" ? "Modo light" : "Modo dark"}>
                     {mounted && (
                         <svg
                         xmlns="http://www.w3.org/2000/svg"

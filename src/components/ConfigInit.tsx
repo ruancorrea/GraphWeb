@@ -12,7 +12,7 @@ interface ConfigInitProps {
 export default function ConfigInit(props: ConfigInitProps) {
     return (
         <div>
-                <label className="flex dark:text-gray-300 py-4 justify-center uppercase tracking-wide text-gray-700 text-3xl font-bold mb-2">
+                <label className="flex dark:text-gray-300 p-4 justify-center uppercase tracking-wide text-gray-700 text-3xl font-bold mb-2">
                   Configurações
                 </label>
 

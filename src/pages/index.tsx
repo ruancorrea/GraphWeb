@@ -8,6 +8,7 @@ import useGraph from '../hooks/useGraph';
 import Menu from '../components/Menu';
 import ModalCard from '../components/ModalCard';
 import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
 
 export default function Home() {
   const { dot, vertices, tipo, arestas, comPeso, inicial, click, textGraph, erro, modalVisivel, textExamplePlaceholder,
@@ -16,6 +17,8 @@ export default function Home() {
           CaminhoDijkstra, CaminhoKruskal, CaminhoPrim
         }
         = useGraph();
+
+  const [sidebar, setSidebar] = useState(false)
 
   useEffect(() => {
     selecionandoGrafo();
@@ -34,20 +37,36 @@ export default function Home() {
 
   return (
     <div>
-       <Navbar setInicial={setInicial} qtdvertices={vertices.length} qtdarestas={arestas.length} reinitSystem={reinitSystem} />
+      <Navbar 
+       setInicial={setInicial} 
+       qtdvertices={vertices.length} 
+       qtdarestas={arestas.length} 
+       reinitSystem={reinitSystem} 
+       /> 
       <div className='grid md:grid-cols-2 grid-cols-1 '>  
-        <div className='flex min-h-screen w-full items-center justify-center bg-gray-100 p-4 dark:bg-gray-800'>
+        <div className='flex md:grid-cols-2 min-h-screen w-full items-center sm:justify-between justify-center bg-gray-100 dark:bg-gray-800'>
+          <Sidebar 
+          setInicial={setInicial} 
+          qtdvertices={vertices.length} 
+          qtdarestas={arestas.length} 
+          reinitSystem={reinitSystem}   
+          />
           {
             inicial 
             ?
-            <ConfigInit setComPeso={setComPeso} setInicial={setInicial} comPeso={comPeso} setTipo={setTipo} />
+            <div className='justify-center w-full'>
+              <ConfigInit setComPeso={setComPeso} setInicial={setInicial} comPeso={comPeso} setTipo={setTipo} />
+            </div>
             :
-            <Menu tipo={tipo} comPeso={comPeso} setOrigem={setOrigem} setDestino={setDestino} setPeso={setPeso}
-              aresta={aresta} setDot={setDot} setArestas={setArestas} setGraph={setGraph} setVertices={setVertices}
-              setInicial={setInicial} verticesQtd={vertices.length} arestasQtd={arestas.length} text={textGraph} 
-              setText={setTextGraph} textCriarGrafo={textCriarGrafo} textExamplePlaceholder={textExamplePlaceholder}
-              reinitSystem={reinitSystem}
-            />
+            <div className='justify-center w-full'>
+              <Menu tipo={tipo} comPeso={comPeso} setOrigem={setOrigem} setDestino={setDestino} setPeso={setPeso}
+                aresta={aresta} setDot={setDot} setArestas={setArestas} setGraph={setGraph} setVertices={setVertices}
+                setInicial={setInicial} verticesQtd={vertices.length} arestasQtd={arestas.length} text={textGraph} 
+                setText={setTextGraph} textCriarGrafo={textCriarGrafo} textExamplePlaceholder={textExamplePlaceholder}
+                reinitSystem={reinitSystem}
+              />
+           </div>
+
           }
           </div>
 
