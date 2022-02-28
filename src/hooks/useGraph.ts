@@ -234,9 +234,11 @@ export default function useGraph() {
           }
           
           for(var i=0;i<vertices.length;i++) graph.set(vertices[i], newMap[i])
+          const verticeInicial = vertices[0]
+          const verticeFinal = vertices[vertices.length-1]
           
           const route = new Graph(graph)
-          const path = route.path(vertices[0], vertices[vertices.length-1])
+          const path = route.path(verticeInicial, verticeFinal)
           var redsArestas = []
           var construindoGrafo = ""
           

@@ -55,7 +55,7 @@ export default function Home() {
             />
             :
             <div className='flex w-1/12'>
-            <a className='fixed cursor-pointer self-center text-lg font-semibold whitespace-nowrap dark:text-white px-3 pt-4 justify-center top-0 ' type='button' onClick={() => setSidebar(true)}>
+            <a className='fixed hidden sm:block cursor-pointer self-center text-lg font-semibold whitespace-nowrap dark:text-white px-3 pt-4 justify-center top-0 ' type='button' onClick={() => setSidebar(true)}>
               {IconMenuHam}
             </a>
             </div>
