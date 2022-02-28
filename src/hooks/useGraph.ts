@@ -176,14 +176,16 @@ export default function useGraph() {
       }
 
       function aresta(){
+        console.log("ENTROU AQUI")
         var flag = true
         if(!comPeso) setPeso(-1);
 
         for(var i=0; i<arestas.length;i++){
           if(arestas[i].from == origem && arestas[i].to == destino){
+            console.log("IGUAL")
             var peso_aux = peso.toString()
             const novoPeso: number = parseInt(arestas[i].weight) + parseInt(peso_aux)
-            arestas[i].setPeso = (novoPeso)
+            arestas[i].setWeight = (novoPeso)
             flag = false
             setArestas(arestas)
           }
