@@ -12,7 +12,7 @@ export default function ModalCard (props: ModalCardProps) {
     const [verticeOrigem, setVerticeOrigem] = useState("");
     const [verticeDestino, setVerticeDestino] = useState("")
     return (
-        <div className="flex w-screen items-center h-screen justify-center">
+        <div className="flex w-screen h-full items-center justify-center">
             {
                 props.modalVisivel ?
                 
