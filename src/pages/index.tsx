@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import GraphViz from '../components/GraphViz';
-import { IconDelete, IconDownload } from '../components/Icons';
+import { IconDelete, IconDownload, IconMenuHam } from '../components/Icons';
 import * as htmlToImage from 'html-to-image';
 import { saveAs } from 'file-saver';
 import ConfigInit from '../components/ConfigInit';
@@ -17,8 +17,7 @@ export default function Home() {
           CaminhoDijkstra, CaminhoKruskal, CaminhoPrim
         }
         = useGraph();
-
-  const [sidebar, setSidebar] = useState(false)
+  const [sidebar, setSidebar] = useState(true);
 
   useEffect(() => {
     selecionandoGrafo();
@@ -45,12 +44,20 @@ export default function Home() {
        /> 
       <div className='grid md:grid-cols-2 grid-cols-1 '>  
         <div className='flex md:grid-cols-2 min-h-screen w-full items-center sm:justify-between justify-center bg-gray-100 dark:bg-gray-800'>
-          <Sidebar 
-          setInicial={setInicial} 
-          qtdvertices={vertices.length} 
-          qtdarestas={arestas.length} 
-          reinitSystem={reinitSystem}   
-          />
+          {
+            sidebar ?
+            <Sidebar 
+            setInicial={setInicial} 
+            qtdvertices={vertices.length} 
+            qtdarestas={arestas.length} 
+            reinitSystem={reinitSystem}
+            setSidebar={setSidebar}   
+            />
+            :
+            <a className='fixed cursor-pointer self-center text-lg font-semibold whitespace-nowrap dark:text-white px-3 pt-4 justify-center top-0 ' type='button' onClick={() => setSidebar(true)}>
+              {IconMenuHam}
+            </a>
+        }
           {
             inicial 
             ?
