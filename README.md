@@ -11,6 +11,8 @@
         <li>Criação de grafos direcionais com peso.</li>
         <li>Criação de grafos direcionais sem peso.</li>
         <li>Download em <i>.png</i> do grafo criado.</li>
+        <li>Modo light e dark</li>
+        <li>Algoritmos como Dijkstra, Kruskal e Prim. (em testes)</li>
         <li>Design responsivo</li>
     </ul>
     <div align = "center">
@@ -28,5 +30,11 @@
         <li>graphviz-react</li>
         <li>Typescript</li>
         <li>Tailwind CSS</li>
+        <li>html-to-image</li>
+        <li>file-saver</li>
+        <li>next-themes</li>
+        <li>node-dijkstra</li>
+        <li>kruskal-mst</li>
+        <li>prim-mst</li>
     </ul>
 </div>

@@ -65,7 +65,7 @@ export default function useGraph() {
               if(arestas[j].from == o && arestas[j].to == d){
                 var peso_aux = peso.toString()
                 const novoPeso: number = parseInt(arestas[j].weight) + p
-                arestas[j].setPeso = (novoPeso)
+                arestas[j].setWeight = (novoPeso)
                 flag = false
                 setArestas(arestas)
               }
@@ -185,7 +185,7 @@ export default function useGraph() {
             console.log("IGUAL")
             var peso_aux = peso.toString()
             const novoPeso: number = parseInt(arestas[i].weight) + parseInt(peso_aux)
-            arestas[i].setWeight = (novoPeso)
+            arestas[i].setWeight = novoPeso
             flag = false
             setArestas(arestas)
           }
@@ -224,7 +224,9 @@ export default function useGraph() {
           for(var j=0; j< arestas.length;j++){
             for(var i=0;i<vertices.length;i++){
               if(arestas[j].from == vertices[i] && arestas[j].weight >= 0){
-                newMap[i].set(arestas[j].to, arestas[j].weight);
+                console.log("arestas[j]",arestas[j])
+
+                newMap[i].set(arestas[j].to, parseInt(arestas[j].weight));
               }else if(arestas[j].weight < 0){
                 setErro("Dijkstra: Peso negativo encontrado.");
                 setModalVisivel(true);
@@ -236,7 +238,10 @@ export default function useGraph() {
           for(var i=0;i<vertices.length;i++) graph.set(vertices[i], newMap[i])
           const verticeInicial = vertices[0]
           const verticeFinal = vertices[vertices.length-1]
-          
+
+          console.log("inicial",verticeInicial)
+          console.log("final",verticeFinal)
+
           const route = new Graph(graph)
           const path = route.path(verticeInicial, verticeFinal)
           var redsArestas = []
