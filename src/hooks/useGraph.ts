@@ -339,7 +339,7 @@ export default function useGraph() {
         if(vertices.length == verticesVerificados.length) {
           if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
         } else {
-          setErro("Prim: MST não encontrado.");
+          setErro("Prim: MST não encontrado. Provavel problema: grafo não conexo.");
           setModalVisivel(true);
         }
       } else{
