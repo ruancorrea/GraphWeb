@@ -5,7 +5,7 @@ import { kruskal, Edge } from 'kruskal-mst';
 export default function useGraph() {
     const [origem, setOrigem] = useState("")
     const [destino, setDestino] = useState("")
-    const [peso, setPeso] = useState<number>()
+    const [peso, setPeso] = useState<number>(0)
     const [dot, setDot] = useState('')
     const [graph, setGraph] = useState([])
     const [vertices, setVertices] = useState([])
@@ -26,7 +26,7 @@ export default function useGraph() {
     function reinitSystem() {
       setOrigem("")
       setDestino("")
-      setPeso()
+      setPeso(0)
       setDot('')
       setGraph([])
       setVertices([])
