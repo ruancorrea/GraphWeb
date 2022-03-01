@@ -70,7 +70,7 @@ export default function Sidebar(props: SidebarProps) {
                         </li>
                         <li>
                             <a onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="flex p-2 cursor-pointer items-center">
+                            className="flex p-2 cursor-pointer items-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
                             {mounted && (
                             <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +96,7 @@ export default function Sidebar(props: SidebarProps) {
                                         )}
                             </svg>
                         )}
-                            <span className="flex-1 ml-3 whitespace-nowrap">{theme == "dark" ? "Modo Dark": "Modo Light"}</span>
+                            <span className="flex-1 ml-3 whitespace-nowrap">{theme == "dark" ? "Modo Light" : "Modo Dark" }</span>
                             </a>
                         </li>
                        {/*

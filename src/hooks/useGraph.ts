@@ -17,10 +17,10 @@ export default function useGraph() {
     const [textGraph, setTextGraph] = useState("")
     const [modalVisivel, setModalVisivel] = useState(false);
     const [erro, setErro] = useState("");
-    const [textExamplePlaceholder, setTextExamplePlaceholder] = useState("Example:\n0 1\n0 2\n1 2\n2 3")
+    const [textExamplePlaceholder, setTextExamplePlaceholder] = useState("Exemplo:\n0 1\n0 2\n1 2\n2 3")
 
     useEffect(() => {
-      setTextExamplePlaceholder(comPeso ?"Example:\n0 1 2\n0 2 3\n1 2 4\n2 3 2" :"Example:\n0 1\n0 2\n1 2\n2 3")
+      setTextExamplePlaceholder(comPeso ?"Exemplo:\n0 1 2\n0 2 3\n1 2 4\n2 3 2" :"Examplo:\n0 1\n0 2\n1 2\n2 3")
     },[comPeso])
 
     function reinitSystem() {
@@ -54,7 +54,7 @@ export default function useGraph() {
           if(qtd==1 && aresta[0] == '') continue;
 
           if(aresta[aresta.length-1] == '') qtd = qtd-1
-          console.log("aresta", aresta)
+         // console.log("aresta", aresta)
 
           if(qtd == 3 && comPeso){
             const o = aresta[0].toString()
@@ -125,7 +125,7 @@ export default function useGraph() {
 
 
 
-    function selecionandoGrafo() {
+      function selecionandoGrafo() {
         if(tipo == "digrafo" && comPeso){
           digrafoComPeso();
         }
@@ -176,12 +176,20 @@ export default function useGraph() {
       }
 
       function aresta(){
-        console.log("ENTROU AQUI")
+        //console.log("ENTROU AQUI")
         var flag = true
         if(!comPeso) setPeso(-1);
 
         for(var i=0; i<arestas.length;i++){
           if(arestas[i].from == origem && arestas[i].to == destino){
+            console.log("IGUAL")
+            var peso_aux = peso.toString()
+            const novoPeso: number = parseInt(arestas[i].weight) + parseInt(peso_aux)
+            arestas[i].setWeight = novoPeso
+            flag = false
+            setArestas(arestas)
+          }
+          else if(tipo=='grafo' && arestas[i].from == destino  && arestas[i].to == origem){
             console.log("IGUAL")
             var peso_aux = peso.toString()
             const novoPeso: number = parseInt(arestas[i].weight) + parseInt(peso_aux)
@@ -339,7 +347,7 @@ export default function useGraph() {
         if(vertices.length == verticesVerificados.length) {
           if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
         } else {
-          setErro("Prim: MST não encontrado. Provavel problema: grafo não conexo.");
+          setErro("Prim: MST não encontrado. Provavel problema: grafo é não conexo.");
           setModalVisivel(true);
         }
       } else{
@@ -348,7 +356,9 @@ export default function useGraph() {
       }
     }
       
+    function caminhoBellmanFord() {
 
+    }
     
 
     return {
