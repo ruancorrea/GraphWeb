@@ -178,12 +178,13 @@ export default function useGraph() {
       function aresta(){
         var flag = true
         console.log("peso", peso)
+        if(!comPeso) setPeso(0);
+        
         if(peso == undefined || origem.length == 0 || destino.length == 0) {
           setErro("Erro encontrado. Dados inválidos.");
           setModalVisivel(true);
           return
         }
-        if(!comPeso) setPeso(0);
         
         for(var i=0; i<arestas.length;i++){
           if(arestas[i].from == origem && arestas[i].to == destino){
