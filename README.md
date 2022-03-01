@@ -1,9 +1,20 @@
+# Criador de Grafos
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 <div>
     <div align = "center">
-        <h1>Criador de Grafos</h1>
-        <img src="https://user-images.githubusercontent.com/47988061/155004556-e9371621-9da1-4ae5-9fc0-992d58b73c5c.png"/>
+        <img src="https://user-images.githubusercontent.com/47988061/155004556-e9371621-9da1-4ae5-9fc0-992d58b73c5c.png" />
         <a href="https://graph-web.vercel.app/" target="_blank">https://graph-web.vercel.app/</a>
     </div>
+</div>
+
+# Sobre o Projeto
+
+<p>Este recurso foi criado colocar em prática os conhecimentos adquiridos em React JS e Tailwind CSS, utilizando o framework Next JS.</p>
+
+<p>O objetivo do projeto foi desenvolver um mecanismo dinâmico de criação de grafos com visualização utilizando a biblioteca em javacript do software GraphViz, podendo aplicar alguns dos algoritmos presentes nesta área, como Dijkstra e Kruskal.</p>
+
+<div>
     <h3>Funcionalidades</h3>
     <ul>
         <li>Criação de grafos não direcionais com peso.</li>
@@ -15,6 +26,12 @@
         <li>Algoritmos como Dijkstra, Kruskal e Prim. (em testes)</li>
         <li>Design responsivo</li>
     </ul>
+</div>
+
+
+# Exemplos de Aplicação
+
+<div>
     <div align = "center">
     <h3>Grafo não direcionado</h3>
     <img src="https://user-images.githubusercontent.com/47988061/155004843-d5acb7c0-1369-4c75-b7f7-b736a2a6d5f5.gif"/>
@@ -39,9 +56,16 @@
     </ul>
 </div>
 
+# Autor
+
+<p><b>Ruan Heleno Correa da Silva</b></p>
+
+Linkedin: https://www.linkedin.com/in/ruan-correa/
+
+E-mail: ruan.correa01@gmail.com 
 
 
-MIT License
+# MIT License
 
 Copyright (c) 2022 Ruan Correa
 
