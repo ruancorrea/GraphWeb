@@ -5,7 +5,7 @@ import { kruskal, Edge } from 'kruskal-mst';
 export default function useGraph() {
     const [origem, setOrigem] = useState("")
     const [destino, setDestino] = useState("")
-    const [peso, setPeso] = useState<number>(0)
+    const [peso, setPeso] = useState<number>()
     const [dot, setDot] = useState('')
     const [graph, setGraph] = useState([])
     const [vertices, setVertices] = useState([])
@@ -26,7 +26,7 @@ export default function useGraph() {
     function reinitSystem() {
       setOrigem("")
       setDestino("")
-      setPeso(0)
+      setPeso()
       setDot('')
       setGraph([])
       setVertices([])
@@ -176,10 +176,15 @@ export default function useGraph() {
       }
 
       function aresta(){
-        //console.log("ENTROU AQUI")
         var flag = true
-        if(!comPeso) setPeso(-1);
-
+        console.log("peso", peso)
+        if(peso == undefined || origem.length == 0 || destino.length == 0) {
+          setErro("Erro encontrado. Dados inválidos.");
+          setModalVisivel(true);
+          return
+        }
+        if(!comPeso) setPeso(0);
+        
         for(var i=0; i<arestas.length;i++){
           if(arestas[i].from == origem && arestas[i].to == destino){
             console.log("IGUAL")
