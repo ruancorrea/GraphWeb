@@ -10,7 +10,7 @@
 
 # Sobre o Projeto
 
-<p>Este recurso foi criado colocar em prática os conhecimentos adquiridos em React JS e Tailwind CSS, utilizando o framework Next JS.</p>
+<p>Este recurso foi criado colocar em prática os conhecimentos adquiridos em Typescript, React JS e Tailwind CSS, utilizando o framework Next JS.</p>
 
 <p>O objetivo do projeto foi desenvolver um mecanismo dinâmico de criação de grafos com visualização utilizando a biblioteca em javacript do software GraphViz, podendo aplicar alguns dos algoritmos presentes nesta área, como Dijkstra e Kruskal.</p>
 
