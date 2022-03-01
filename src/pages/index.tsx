@@ -12,6 +12,7 @@ import Sidebar from '../components/Sidebar';
 
 export default function Home() {
   const { dot, vertices, tipo, arestas, comPeso, inicial, click, textGraph, erro, modalVisivel, textExamplePlaceholder,
+          destino, origem, peso,
           setOrigem, setDestino, setPeso, setDot, setGraph, setVertices, setTipo, setArestas, setComPeso, setInicial,
           selecionandoGrafo, aresta, setTextGraph, textCriarGrafo, setModalVisivel, reinitSystem, 
           CaminhoDijkstra, CaminhoKruskal, CaminhoPrim
@@ -74,7 +75,7 @@ export default function Home() {
                 aresta={aresta} setDot={setDot} setArestas={setArestas} setGraph={setGraph} setVertices={setVertices}
                 setInicial={setInicial} verticesQtd={vertices.length} arestasQtd={arestas.length} text={textGraph} 
                 setText={setTextGraph} textCriarGrafo={textCriarGrafo} textExamplePlaceholder={textExamplePlaceholder}
-                reinitSystem={reinitSystem}
+                reinitSystem={reinitSystem} destino={destino} origem={origem} peso={peso}
               />
            </div>
 

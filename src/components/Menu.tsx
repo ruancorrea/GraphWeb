@@ -23,6 +23,9 @@ interface MenuProps {
     arestasQtd: number
     textExamplePlaceholder: string
     reinitSystem: () => void
+    destino: string
+    origem: string
+    peso: number
 }
 
 export default function Menu(props: MenuProps) {
@@ -75,6 +78,9 @@ export default function Menu(props: MenuProps) {
               setDestino={props.setDestino} 
               setOrigem={props.setOrigem} 
               setPeso={props.setPeso} 
+              destino={props.destino}
+              origem={props.origem}
+              peso={props.peso}
               />
               :
               <Text 
