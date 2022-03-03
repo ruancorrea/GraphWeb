@@ -22,7 +22,7 @@ export default function useGraph() {
     const [textExamplePlaceholder, setTextExamplePlaceholder] = useState("Exemplo:\n0 1\n0 2\n1 2\n2 3")
 
     useEffect(() => {
-      setTextExamplePlaceholder(comPeso ?"Exemplo:\n0 1 2\n0 2 3\n1 2 4\n2 3 2" :"Examplo:\n0 1\n0 2\n1 2\n2 3")
+      setTextExamplePlaceholder(comPeso ?"Exemplo:\n0 1 2\n0 2 3\n1 2 4\n2 3 2" :"Exemplo:\n0 1\n0 2\n1 2\n2 3")
     },[comPeso])
 
     function reinitSystem() {
