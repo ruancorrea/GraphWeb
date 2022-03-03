@@ -23,7 +23,7 @@ export default function Navbar(props: NavbarProps) {
         <div className="w-full sm:hidden block  dark:text-gray-300 text-gray-800 mr-6 p-6 bg-gray-300 dark:bg-slate-900 mb-1">
             <div className="flex md:flex-row justify-between items-center">
 
-                <span className="font-semibold text-xl tracking-tight md:ml-2">Criador de Grafos</span>
+                <span className="font-semibold text-xl tracking-tight md:ml-2">GraphWeb</span>
 
                 <div className="hidden space-x-4 md:block">
                     <label title="Número de vertices adicionados" className="uppercase tracking-wide text-gray-700 text-sm font-bold mb-2 dark:text-gray-300">Vértices: {props.qtdvertices}</label>

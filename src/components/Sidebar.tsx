@@ -25,7 +25,7 @@ export default function Sidebar(props: SidebarProps) {
             <aside className="w-52" aria-label="Sidebar">
                 <div className="px-3 pt-4 overflow-y-auto rounded h-screen bg-gray-50 dark:bg-gray-900">
                     <a className="flex pl-2.5 mb-5 justify-between">
-                        <span className="self-center text-lg font-semibold whitespace-nowrap dark:text-white">Criador de Grafos</span>
+                        <span className="self-center text-lg font-semibold whitespace-nowrap dark:text-white">GraphWeb</span>
                         <a type="button" className="cursor-pointer self-center text-lg font-semibold whitespace-nowrap dark:text-white" onClick={() => props.setSidebar(false)}>
                             {IconX}
                         </a>

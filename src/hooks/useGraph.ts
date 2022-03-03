@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react"
 import Aresta from "../core/Aresta"
-import { kruskal, Edge } from 'kruskal-mst';
+import Prim from "../lib/algorithms-graph/prim";
+import Kruskal from "../lib/algorithms-graph/kruskal";
+import Dijkstra from "../lib/algorithms-graph/dijkstra";
 
 export default function useGraph() {
     const [origem, setOrigem] = useState("")
     const [destino, setDestino] = useState("")
     const [peso, setPeso] = useState<number>(0)
-    const [dot, setDot] = useState('')
+    const [dot, setDot] = useState<string>('')
     const [graph, setGraph] = useState([])
     const [vertices, setVertices] = useState([])
-    const [tipo, setTipo] = useState("digrafo")
-    const [arestas, setArestas] = useState([])
-    const [comPeso, setComPeso] = useState(true)
+    const [tipo, setTipo] = useState<string>("digrafo")
+    const [arestas, setArestas] = useState<Aresta[]>([])
+    const [comPeso, setComPeso] = useState<boolean>(true)
     const [inicial, setInicial] = useState(true)
     const [click, setClick] = useState(0)
     const [textGraph, setTextGraph] = useState("")
-    const [modalVisivel, setModalVisivel] = useState(false);
-    const [erro, setErro] = useState("");
+    const [modalVisivel, setModalVisivel] = useState<boolean>(false);
+    const [erro, setErro] = useState<string>("");
     const [textExamplePlaceholder, setTextExamplePlaceholder] = useState("Exemplo:\n0 1\n0 2\n1 2\n2 3")
 
     useEffect(() => {
@@ -63,8 +65,9 @@ export default function useGraph() {
             var flag = true
             for(var j=0; j<arestas.length;j++){
               if(arestas[j].from == o && arestas[j].to == d){
-                var peso_aux = peso.toString()
-                const novoPeso: number = parseInt(arestas[j].weight) + p
+                //var peso_aux = peso.toString()
+                var pesoAux = arestas[j].weight.toString()
+                const novoPeso: number = parseInt(pesoAux) + p
                 arestas[j].setWeight = (novoPeso)
                 flag = false
                 setArestas(arestas)
@@ -190,7 +193,8 @@ export default function useGraph() {
           if(arestas[i].from == origem && arestas[i].to == destino){
             console.log("IGUAL")
             var peso_aux = peso.toString()
-            const novoPeso: number = parseInt(arestas[i].weight) + parseInt(peso_aux)
+            var pesoAux = arestas[i].weight.toString()
+            const novoPeso: number = parseInt(pesoAux) + parseInt(peso_aux)
             arestas[i].setWeight = novoPeso
             flag = false
             setArestas(arestas)
@@ -198,7 +202,8 @@ export default function useGraph() {
           else if(tipo=='grafo' && arestas[i].from == destino  && arestas[i].to == origem){
             console.log("IGUAL")
             var peso_aux = peso.toString()
-            const novoPeso: number = parseInt(arestas[i].weight) + parseInt(peso_aux)
+            var pesoAux = arestas[i].weight.toString()
+            const novoPeso: number = parseInt(pesoAux) + parseInt(peso_aux)
             arestas[i].setWeight = novoPeso
             flag = false
             setArestas(arestas)
@@ -224,142 +229,16 @@ export default function useGraph() {
 
       }
 
-      function CaminhoDijkstra(verticeInicial: string, verticeFinal: string) {
-        if(vertices.indexOf(verticeInicial) == -1 || vertices.indexOf(verticeFinal) == -1) {
-          setErro("Dijkstra: Algum vértice informado não está presente entre os vértices adicionados no grafo.");
-          setModalVisivel(true);
-          return
-        }
-        if(tipo == "digrafo" && comPeso){
-
-          const Graph = require('node-dijkstra')
-          var newMap = []
-          const graph = new Map()
-          
-          for(var i=0;i<vertices.length;i++){
-            newMap.push(new Map())
-          }
-          
-          for(var j=0; j< arestas.length;j++){
-            for(var i=0;i<vertices.length;i++){
-              if(arestas[j].from == vertices[i] && arestas[j].weight >= 0){
-                console.log("arestas[j]",arestas[j])
-
-                newMap[i].set(arestas[j].to, parseInt(arestas[j].weight));
-              }else if(arestas[j].weight < 0){
-                setErro("Dijkstra: Peso negativo encontrado.");
-                setModalVisivel(true);
-                return
-              }
-            }
-          }
-          
-          for(var i=0;i<vertices.length;i++) graph.set(vertices[i], newMap[i])
-
-          console.log("inicial",verticeInicial)
-          console.log("final",verticeFinal)
-
-          const route = new Graph(graph)
-          const path = route.path(verticeInicial, verticeFinal)
-          var redsArestas = []
-          var construindoGrafo = ""
-          
-          console.log("Path", path) // se o path dar null entao nao há solução
-          if(path != null){
-            
-            for(var i=0;i<path.length;i++){
-              if (i+1 <= path.length) {
-                for(var j=0;j<arestas.length;j++){
-                  if(arestas[j].from == path[i] && arestas[j].to == path[i+1]) redsArestas.push(j)
-                }
-              }
-            }
-            for(var j=0;j<arestas.length;j++) {
-              if(redsArestas.indexOf(j) != -1) {
-                construindoGrafo += `${arestas[j].from} -> ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"][color=red,penwidth=3.0];\n`
-              } else construindoGrafo += `${arestas[j].from} -> ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"];\n`
-              
-            }
-            
-            if(construindoGrafo != "") setDot(`digraph{${construindoGrafo}}`)
-          } else {
-            setErro("Dijkstra: Menor caminho não encontrado.");
-            setModalVisivel(true);
-          }
-        }else {
-            setErro("Dijkstra: Erro encontrado. Grafo precisa ser direcionado (digrado) e é necessário ter peso positivo.");
-            setModalVisivel(true);
-        }
-      }
+    function CaminhoDijkstra(verticeInicial: string, verticeFinal: string) {
+      Dijkstra(verticeInicial, verticeFinal, tipo, comPeso, arestas, vertices, setDot, setErro, setModalVisivel)
+    }
 
     function CaminhoKruskal() {
-      var verticesVerificados = [] // ainda com erro
-      if(tipo == "grafo" && comPeso){
-        const spanningTree = kruskal(arestas);
-        var construindoGrafo = ""
-        for(var j=0;j<arestas.length;j++) {
-          var flag = false
-          for(var i=0; i<spanningTree.length;i++) {
-            if(spanningTree[i] == arestas[j]) {
-              construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"][color=red,penwidth=3.0];\n`
-              flag = true
-              if(verticesVerificados.indexOf(arestas[j].from) == -1) verticesVerificados.push(arestas[j].from)  
-              if(verticesVerificados.indexOf(arestas[j].to) == -1) verticesVerificados.push(arestas[j].to)  
-            }
-          }
-          if(!flag) construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"];\n`
-        }
-        if(vertices.length == verticesVerificados.length) {
-          if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
-        } else {
-          setErro("Kruskal: Erro encontrado. MST não encontrado.");
-          setModalVisivel(true);
-        }
-      }else {
-        setErro("Kruskal: Erro encontrado. Grafo precisa ser não direcionado e é necessário ter peso.");
-        setModalVisivel(true);
-      }
+      Kruskal(tipo, comPeso, arestas, vertices, setDot, setErro, setModalVisivel)
     }
 
     function CaminhoPrim() {
-      var verticesVerificados = []
-
-      if(tipo == "grafo" && comPeso){
-        var prim = require('prim-mst');
-        var graph = []
-        
-        for(var i=0; i<arestas.length;i++) graph.push([arestas[i].from, arestas[i].to, arestas[i].weight])
-        
-        const spanningTree = prim(graph)
-        console.log("prim", spanningTree)
-        for(var i=0; i<spanningTree.length;i++) {       
-          console.log(spanningTree[i][0],",",spanningTree[i][1], ",",spanningTree[i][2])
-        }  
-        var construindoGrafo = ""
-        for(var j=0;j<arestas.length;j++) {
-          var flag = false
-          for(var i=0; i<spanningTree.length;i++) {
-            if(spanningTree[i][0] == arestas[j].to && spanningTree[i][1] == arestas[j].from ||
-              spanningTree[i][1] == arestas[j].to && spanningTree[i][0] == arestas[j].from ) {
-              console.log("entrou")
-              if(verticesVerificados.indexOf(arestas[j].from) == -1) verticesVerificados.push(arestas[j].from)  
-              if(verticesVerificados.indexOf(arestas[j].to) == -1) verticesVerificados.push(arestas[j].to)  
-              construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"][color=red,penwidth=3.0];\n`
-              flag = true
-            }
-          }
-          if(!flag) construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"];\n`
-        }
-        if(vertices.length == verticesVerificados.length) {
-          if(construindoGrafo != "") setDot(`graph{${construindoGrafo}}`)
-        } else {
-          setErro("Prim: MST não encontrado. Provavel problema: grafo é não conexo.");
-          setModalVisivel(true);
-        }
-      } else{
-        setErro("Prim: Erro encontrado. Grafo precisa ser não direcionado e é necessário ter peso.");
-        setModalVisivel(true);
-      }
+      Prim(tipo, comPeso, arestas, vertices, setDot, setErro, setModalVisivel)
     }
       
     function caminhoBellmanFord() {
