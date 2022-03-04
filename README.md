@@ -3,7 +3,7 @@
 
 <div>
     <div align = "center">
-        <img src="https://user-images.githubusercontent.com/47988061/155004556-e9371621-9da1-4ae5-9fc0-992d58b73c5c.png" />
+        <img src="https://user-images.githubusercontent.com/47988061/156695033-51ed9573-7d49-4bcc-a1a5-c60f14078968.png" />
         <a href="https://graph-web.vercel.app/" target="_blank">https://graph-web.vercel.app/</a>
     </div>
 </div>
