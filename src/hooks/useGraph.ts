@@ -47,7 +47,7 @@ export default function useGraph() {
       if(textGraph.length > 0) {
         const copyText = textGraph.split("/n");
         const text = copyText[0].split("\n")
-        var vertices2 = []
+        var vertices2 = vertices
 
         console.log(text)
         for(var i=0; i<text.length; i++) {
@@ -58,21 +58,26 @@ export default function useGraph() {
           if(aresta[aresta.length-1] == '') qtd = qtd-1
          // console.log("aresta", aresta)
 
-          if(qtd == 3 && comPeso){
-            const o = aresta[0].toString()
-            const d = aresta[1].toString()
-            const p = parseInt(aresta[2])
-            var flag = true
-            for(var j=0; j<arestas.length;j++){
-              if(arestas[j].from == o && arestas[j].to == d){
-                //var peso_aux = peso.toString()
-                var pesoAux = arestas[j].weight.toString()
-                const novoPeso: number = parseInt(pesoAux) + p
-                arestas[j].setWeight = (novoPeso)
-                flag = false
-                setArestas(arestas)
+         
+         if(qtd == 3 && comPeso){
+           const o = aresta[0].toString()
+           const d = aresta[1].toString()
+           const p = parseInt(aresta[2])
+           var flag = true
+           for(var j=0; j<arestas.length;j++){
+             if(arestas[j].from == o && arestas[j].to == d){
+               //var peso_aux = peso.toString()
+               var pesoAux = arestas[j].weight.toString()
+               const novoPeso: number = parseInt(pesoAux) + p
+               arestas[j].setWeight = (novoPeso)
+               flag = false
+               setArestas(arestas)
               }
             }
+            
+            console.log("origem", o);
+            console.log("destino", d);
+            console.log(vertices2.indexOf(d))
 
             if(flag) setArestas(prev => { return [...prev, new Aresta(o, d, p, `${arestas.length+1}`)]})
 

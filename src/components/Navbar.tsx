@@ -42,7 +42,7 @@ export default function Navbar(props: NavbarProps) {
                         setModalSistemaVisivel(true);
                     }}> <small className="flex items-center">{IconAtualizar}</small>
                     </button>
-                    <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} title={theme == "dark" ? "Modo light" : "Modo dark"}>
+                    <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
                     {mounted && (
                         <svg
                         xmlns="http://www.w3.org/2000/svg"
