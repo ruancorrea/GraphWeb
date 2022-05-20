@@ -49,7 +49,7 @@ export default function useGraph() {
         const text = copyText[0].split("\n")
         var vertices2 = vertices
 
-        console.log(text)
+        //console.log(text)
         for(var i=0; i<text.length; i++) {
           var aresta = text[i].split(" ")
           var qtd = aresta.length
@@ -75,9 +75,9 @@ export default function useGraph() {
               }
             }
             
-            console.log("origem", o);
-            console.log("destino", d);
-            console.log(vertices2.indexOf(d))
+            //console.log("origem", o);
+            //console.log("destino", d);
+            //console.log(vertices2.indexOf(d))
 
             if(flag) setArestas(prev => { return [...prev, new Aresta(o, d, p, `${arestas.length+1}`)]})
 
@@ -88,7 +88,7 @@ export default function useGraph() {
 
             setClick(click + 1)
             setVertices(vertices2)
-            console.log("VERTICES", vertices)     
+           // console.log("VERTICES", vertices)     
           }
 
 
@@ -113,7 +113,7 @@ export default function useGraph() {
 
             setClick(click + 1)
             setVertices(vertices2)
-            console.log("VERTICES", vertices)
+            //console.log("VERTICES", vertices)
           }
 
           else {
@@ -185,7 +185,7 @@ export default function useGraph() {
 
       function aresta(){
         var flag = true
-        console.log("peso", peso)
+        //console.log("peso", peso)
         if(!comPeso) setPeso(0);
         
         if(peso == undefined || origem.length == 0 || destino.length == 0) {
@@ -196,7 +196,7 @@ export default function useGraph() {
         
         for(var i=0; i<arestas.length;i++){
           if(arestas[i].from == origem && arestas[i].to == destino){
-            console.log("IGUAL")
+            //console.log("IGUAL")
             var peso_aux = peso.toString()
             var pesoAux = arestas[i].weight.toString()
             const novoPeso: number = parseInt(pesoAux) + parseInt(peso_aux)
@@ -205,7 +205,7 @@ export default function useGraph() {
             setArestas(arestas)
           }
           else if(tipo=='grafo' && arestas[i].from == destino  && arestas[i].to == origem){
-            console.log("IGUAL")
+            //console.log("IGUAL")
             var peso_aux = peso.toString()
             var pesoAux = arestas[i].weight.toString()
             const novoPeso: number = parseInt(pesoAux) + parseInt(peso_aux)

@@ -29,7 +29,7 @@ export default function Dijkstra(
         for(var j=0; j< arestas.length;j++){
           for(var i=0;i<vertices.length;i++){
             if(arestas[j].from == vertices[i] && arestas[j].weight >= 0){
-              console.log("arestas[j]",arestas[j])
+              //console.log("arestas[j]",arestas[j])
               var pesoAux = arestas[j].weight.toString()
 
               newMap[i].set(arestas[j].to, parseInt(pesoAux));
@@ -43,15 +43,15 @@ export default function Dijkstra(
         
         for(var i=0;i<vertices.length;i++) graph.set(vertices[i], newMap[i])
 
-        console.log("inicial",verticeInicial)
-        console.log("final",verticeFinal)
+        //console.log("inicial",verticeInicial)
+        //console.log("final",verticeFinal)
 
         const route = new Graph(graph)
         const path = route.path(verticeInicial, verticeFinal)
         var redsArestas = []
         var construindoGrafo = ""
         
-        console.log("Path", path) // se o path dar null entao nao há solução
+        //console.log("Path", path) // se o path dar null entao nao há solução
         if(path != null){
           
           for(var i=0;i<path.length;i++){

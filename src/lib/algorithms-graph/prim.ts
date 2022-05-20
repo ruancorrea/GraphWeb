@@ -19,9 +19,9 @@ export default function Prim(
       for(var i=0; i<arestas.length;i++) graph.push([arestas[i].from, arestas[i].to, arestas[i].weight])
       
       const spanningTree = prim(graph)
-      console.log("prim", spanningTree)
+      //console.log("prim", spanningTree)
       for(var i=0; i<spanningTree.length;i++) {       
-        console.log(spanningTree[i][0],",",spanningTree[i][1], ",",spanningTree[i][2])
+        //console.log(spanningTree[i][0],",",spanningTree[i][1], ",",spanningTree[i][2])
       }  
       var construindoGrafo = ""
       for(var j=0;j<arestas.length;j++) {
@@ -29,7 +29,7 @@ export default function Prim(
         for(var i=0; i<spanningTree.length;i++) {
           if(spanningTree[i][0] == arestas[j].to && spanningTree[i][1] == arestas[j].from ||
             spanningTree[i][1] == arestas[j].to && spanningTree[i][0] == arestas[j].from ) {
-            console.log("entrou")
+            //console.log("entrou")
             if(verticesVerificados.indexOf(arestas[j].from) == -1) verticesVerificados.push(arestas[j].from)  
             if(verticesVerificados.indexOf(arestas[j].to) == -1) verticesVerificados.push(arestas[j].to)  
             construindoGrafo += `${arestas[j].from} -- ${arestas[j].to}[label="${arestas[j].weight}",weight="${arestas[j].weight}"][color=red,penwidth=3.0];\n`
